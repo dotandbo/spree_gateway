@@ -178,6 +178,7 @@ module Spree
             :country_name => creditcard.bill_address.country ? creditcard.bill_address.country.name : nil
           }
         end
+        parameters[:verify_card] = "true"
         parameters
       end
   end
