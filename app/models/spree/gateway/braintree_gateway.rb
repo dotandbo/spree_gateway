@@ -166,6 +166,8 @@ module Spree
         if payment.order && payment.order.user
           parameters[:email]    ||= payment.order.user.email
         end
+        parameters[:first_name] ||= creditcard.first_name if creditcard
+        parameters[:last_name]  ||= creditcard.last_name if creditcard
         if creditcard.bill_address
           parameters[:billing_address] ||= {
             :address1     => creditcard.bill_address.address1,
