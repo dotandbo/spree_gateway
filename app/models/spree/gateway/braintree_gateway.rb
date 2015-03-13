@@ -54,7 +54,7 @@ module Spree
           cc = response.params['braintree_customer'].fetch('credit_cards',[]).first
           update_card_number(payment.source, cc) if cc
         else
-          payment.send(:gateway_error, response.message)
+          payment.send(:gateway_error, response)
         end
       end
     end
