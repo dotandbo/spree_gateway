@@ -35,9 +35,16 @@ module Spree
       ActiveMerchant::Billing::BraintreeBlueGateway
     end
 
-    def authorize(money, creditcard, options = {})
+     def authorize(money, creditcard, options = {})
       adjust_options_for_braintree(creditcard, options)
-      payment_method = creditcard.gateway_customer_profile_id || creditcard
+
+      if creditcard.gateway_payment_profile_id
+        payment_method = creditcard.gateway_payment_profile_id
+        options[:payment_method_token] = true
+      else
+        payment_method = creditcard.gateway_customer_profile_id || creditcard
+      end
+
       provider.authorize(money, payment_method, options)
     end
 
